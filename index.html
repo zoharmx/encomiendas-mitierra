@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encomiendas Mi Tierra — Paquetería y Encomiendas de EE. UU. a México y Centroamérica</title>
+<meta name="description" content="Paquetería y Encomiendas Mi Tierra: envíos puerta a puerta desde Estados Unidos a México, Guatemala, Honduras, El Salvador y Nicaragua. Sin límite de peso. Rastreo en tiempo real, apartado postal gratis y mudanzas.">
+<link rel="icon" href="https://assets.zyrosite.com/AVLJ5W4V6yCrzx98/logo-2-YD0pbBvzbliyl6x4.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PAQUETERÍA Y ENCOMIENDAS MI TIERRA — Landing Demo 2026
+   Un solo archivo · Responsive · Animaciones suaves
+   ============================================================ */
+:root{
+  --red:#BE3A47;          /* rojo del logo */
+  --red-dark:#9C2933;
+  --red-soft:#F7E3E5;
+  --navy:#20338B;         /* azul del logo */
+  --navy-ink:#141D4C;
+  --sand:#C9B08E;         /* beige de la marca anterior */
+  --sand-soft:#F4EDE2;
+  --cream:#FBF8F2;
+  --ink:#231F20;
+  --ink-soft:#5C5650;
+  --white:#FFFFFF;
+  --gold:#D9A441;
+  --shadow-lg:0 30px 60px -20px rgba(35,25,20,.25);
+  --shadow-md:0 16px 40px -16px rgba(35,25,20,.22);
+  --radius:22px;
+  --font-display:'Sora',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--ink);background:var(--cream);line-height:1.65;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+::selection{background:var(--red);color:#fff}
+
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.15;color:var(--ink)}
+.section{padding:clamp(70px,9vw,120px) 0;position:relative}
+.container{width:min(1180px,92%);margin-inline:auto}
+.kicker{display:inline-flex;align-items:center;gap:.55rem;font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:1rem}
+.kicker::before{content:"";width:34px;height:2px;background:var(--red);border-radius:2px}
+.section-title{font-size:clamp(1.7rem,3.6vw,2.7rem);font-weight:800;margin-bottom:1rem;letter-spacing:-.02em}
+.section-lead{color:var(--ink-soft);font-size:clamp(1rem,1.4vw,1.12rem);max-width:640px}
+
+/* ---------- Reveal on scroll ---------- */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
+.reveal.visible{opacity:1;transform:none}
+.reveal[data-delay="1"]{transition-delay:.12s}
+.reveal[data-delay="2"]{transition-delay:.24s}
+.reveal[data-delay="3"]{transition-delay:.36s}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- Botones ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;font-weight:700;font-size:.98rem;padding:.95rem 1.7rem;border-radius:999px;transition:transform .25s,box-shadow .25s,background .25s;white-space:nowrap}
+.btn svg{width:20px;height:20px;flex:none}
+.btn-primary{background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;box-shadow:0 12px 28px -10px rgba(190,58,71,.55)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 34px -10px rgba(190,58,71,.6)}
+.btn-whatsapp{background:#22b358;color:#fff;box-shadow:0 12px 28px -10px rgba(34,179,88,.5)}
+.btn-whatsapp:hover{transform:translateY(-3px)}
+.btn-ghost{background:#fff;color:var(--ink);border:1.5px solid #E7DCCB;box-shadow:0 8px 20px -12px rgba(35,25,20,.25)}
+.btn-ghost:hover{transform:translateY(-3px);border-color:var(--sand)}
+
+/* ============ TOP BAR ============ */
+.topbar{background:var(--navy-ink);color:#E7EAF7;font-size:.82rem;padding:.5rem 0;position:relative;z-index:60}
+.topbar .container{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.topbar a{display:inline-flex;align-items:center;gap:.4rem;opacity:.92;transition:opacity .2s}
+.topbar a:hover{opacity:1}
+.topbar svg{width:14px;height:14px}
+.topbar-phones{display:flex;gap:1.4rem}
+.topbar-note{display:flex;align-items:center;gap:.45rem;color:var(--sand)}
+@media (max-width:720px){.topbar-note{display:none}.topbar-phones{width:100%;justify-content:center;flex-wrap:wrap;gap:.6rem 1.2rem}}
+
+/* ============ NAV ============ */
+.nav{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(201,176,142,.25);transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 10px 30px -18px rgba(35,25,20,.35)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 0}
+.nav-logo img{height:52px;width:auto;transition:height .3s}
+.nav.scrolled .nav-logo img{height:44px}
+.nav-links{display:flex;align-items:center;gap:clamp(.9rem,1.8vw,1.7rem);font-weight:600;font-size:.93rem}
+.nav-links a{position:relative;padding:.35rem 0;color:var(--ink-soft);transition:color .2s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2.5px;background:var(--red);border-radius:2px;transition:width .28s}
+.nav-links a:hover,.nav-links a.active{color:var(--ink)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{display:flex;align-items:center;gap:.7rem}
+.nav-burger{display:none;flex-direction:column;gap:5px;padding:.5rem}
+.nav-burger span{width:26px;height:2.6px;background:var(--ink);border-radius:3px;transition:.3s}
+.nav-burger.open span:nth-child(1){transform:translateY(7.6px) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-7.6px) rotate(-45deg)}
+@media (max-width:1020px){
+  .nav-links{position:fixed;inset:0;top:0;padding-top:110px;background:var(--cream);flex-direction:column;justify-content:flex-start;gap:1.6rem;font-size:1.15rem;transform:translateX(100%);transition:transform .4s cubic-bezier(.7,0,.3,1);z-index:-1}
+  .nav-links.open{transform:none}
+  .nav-burger{display:flex}
+  .nav-cta .btn-primary{display:none}
+}
+
+/* ============ HERO ============ */
+.hero{position:relative;overflow:hidden;background:
+  radial-gradient(1100px 600px at 85% -10%,rgba(201,176,142,.34),transparent 60%),
+  radial-gradient(900px 500px at -10% 110%,rgba(190,58,71,.1),transparent 55%),
+  var(--cream)}
+.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(35,25,20,.10) 1.1px,transparent 1.1px);background-size:26px 26px;mask-image:radial-gradient(700px 480px at 78% 30%,#000 20%,transparent 75%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center;padding:clamp(56px,7vw,96px) 0 clamp(70px,8vw,110px)}
+.hero-badge{display:inline-flex;align-items:center;gap:.55rem;background:#fff;border:1px solid #EADFCE;padding:.5rem 1rem;border-radius:999px;font-size:.85rem;font-weight:600;color:var(--ink-soft);box-shadow:0 8px 22px -14px rgba(35,25,20,.4);margin-bottom:1.4rem}
+.hero-badge .dot{width:9px;height:9px;border-radius:50%;background:#22b358;box-shadow:0 0 0 4px rgba(34,179,88,.18);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(34,179,88,.18)}50%{box-shadow:0 0 0 8px rgba(34,179,88,.06)}}
+.hero h1{font-size:clamp(2.3rem,5.2vw,3.9rem);font-weight:800;letter-spacing:-.03em;margin-bottom:1.2rem}
+.hero h1 .accent{color:var(--red);position:relative;white-space:nowrap}
+.hero h1 .accent svg{position:absolute;left:0;bottom:-.18em;width:100%;height:.32em;overflow:visible}
+.hero h1 .accent svg path{stroke:var(--sand);stroke-width:7;fill:none;stroke-linecap:round;stroke-dasharray:600;stroke-dashoffset:600;animation:draw 1.4s .5s forwards cubic-bezier(.6,0,.3,1)}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero-lead{color:var(--ink-soft);font-size:clamp(1.02rem,1.5vw,1.18rem);max-width:520px;margin-bottom:1.8rem}
+.hero-lead strong{color:var(--ink)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.9rem;margin-bottom:2.2rem}
+.hero-countries{display:flex;flex-wrap:wrap;gap:.55rem}
+.country-chip{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1px solid #EADFCE;border-radius:999px;padding:.42rem .95rem .42rem .6rem;font-weight:600;font-size:.88rem;box-shadow:0 6px 16px -12px rgba(35,25,20,.35);transition:transform .25s,border-color .25s}
+.country-chip:hover{transform:translateY(-3px);border-color:var(--sand)}
+.country-chip .flag{font-size:1.25rem;line-height:1}
+/* Hero visual */
+.hero-visual{position:relative}
+.hero-photo{border-radius:28px;overflow:hidden;box-shadow:var(--shadow-lg);transform:rotate(1.5deg);border:6px solid #fff;position:relative}
+.hero-photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:1/1;object-position:center}
+.hero-card{position:absolute;background:#fff;border-radius:18px;box-shadow:var(--shadow-md);padding:.9rem 1.1rem;display:flex;align-items:center;gap:.8rem;animation:float 6s ease-in-out infinite}
+.hero-card .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;flex:none}
+.hero-card b{font-family:var(--font-display);font-size:.95rem;display:block;line-height:1.2}
+.hero-card small{color:var(--ink-soft);font-size:.78rem}
+.hero-card.c1{top:6%;left:-9%;animation-delay:.5s}
+.hero-card.c1 .ic{background:var(--red-soft);color:var(--red)}
+.hero-card.c2{bottom:9%;right:-7%;animation-delay:1.5s}
+.hero-card.c2 .ic{background:#E4F7EB;color:#178a43}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr;padding-top:44px}
+  .hero-visual{max-width:480px;margin-inline:auto;width:100%}
+  .hero-card.c1{left:-2%}
+  .hero-card.c2{right:-2%}
+}
+
+/* Marquee de confianza */
+.marquee{background:var(--navy-ink);color:#fff;padding:1rem 0;overflow:hidden;position:relative}
+.marquee-track{display:flex;gap:3.5rem;width:max-content;animation:scrollx 30s linear infinite;font-family:var(--font-display);font-weight:600;font-size:.95rem;letter-spacing:.02em}
+.marquee-track span{display:inline-flex;align-items:center;gap:.7rem;opacity:.9;white-space:nowrap}
+.marquee-track .star{color:var(--sand)}
+@keyframes scrollx{to{transform:translateX(-50%)}}
+
+/* ============ STATS ============ */
+.stats{background:#fff;border-block:1px solid #F0E7D8}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;padding:clamp(40px,5vw,60px) 0;text-align:center}
+.stat b{font-family:var(--font-display);font-size:clamp(1.9rem,3.4vw,2.8rem);font-weight:800;color:var(--red);display:block;letter-spacing:-.02em}
+.stat span{color:var(--ink-soft);font-weight:600;font-size:.92rem}
+@media (max-width:760px){.stats-grid{grid-template-columns:repeat(2,1fr);gap:2rem 1rem}}
+
+/* ============ RASTREO ============ */
+.tracking{background:
+  radial-gradient(900px 500px at 110% 0%,rgba(201,176,142,.25),transparent 60%),
+  linear-gradient(160deg,var(--navy-ink),#2A3C96 75%);color:#fff;overflow:hidden}
+.tracking .kicker{color:var(--sand)}
+.tracking .kicker::before{background:var(--sand)}
+.tracking .section-title,.tracking h3{color:#fff}
+.tracking .section-lead{color:#C6CCE9}
+.tracking-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.tracking-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(8px);border-radius:var(--radius);padding:clamp(1.4rem,3vw,2.2rem);box-shadow:var(--shadow-lg)}
+.tracking-form{display:flex;gap:.7rem;margin-top:1.2rem}
+.tracking-form input{flex:1;min-width:0;background:#fff;border:none;border-radius:14px;padding:1rem 1.2rem;font-size:1rem;font-family:inherit;color:var(--ink);outline:3px solid transparent;transition:outline .2s}
+.tracking-form input:focus{outline-color:rgba(201,176,142,.7)}
+.tracking-form .btn{border-radius:14px}
+@media (max-width:520px){.tracking-form{flex-direction:column}}
+.timeline{margin-top:1.7rem;display:none}
+.timeline.show{display:block;animation:fadeUp .6s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.tl-item{display:flex;gap:1rem;position:relative;padding-bottom:1.35rem}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:"";position:absolute;left:13px;top:30px;bottom:2px;width:2px;background:rgba(255,255,255,.22)}
+.tl-item:last-child::before{display:none}
+.tl-dot{width:28px;height:28px;border-radius:50%;flex:none;display:grid;place-items:center;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.35);font-size:.8rem}
+.tl-item.done .tl-dot{background:#22b358;border-color:#22b358}
+.tl-item.current .tl-dot{background:var(--sand);border-color:var(--sand);color:var(--navy-ink);box-shadow:0 0 0 6px rgba(201,176,142,.25);animation:pulse 2s infinite}
+.tl-item b{display:block;font-size:.95rem}
+.tl-item small{color:#B9C0E2;font-size:.8rem}
+.tl-note{margin-top:1rem;font-size:.8rem;color:#AEB6DE;display:flex;gap:.5rem;align-items:flex-start}
+.phone-cards{display:grid;gap:1rem;margin-top:1.6rem}
+.phone-card{display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:1rem 1.2rem;transition:background .25s,transform .25s}
+.phone-card:hover{background:rgba(255,255,255,.13);transform:translateX(6px)}
+.phone-card .ic{width:44px;height:44px;border-radius:12px;background:rgba(201,176,142,.2);color:var(--sand);display:grid;place-items:center;flex:none}
+.phone-card .ic svg{width:22px;height:22px}
+.phone-card b{display:block;font-size:1.05rem;font-family:var(--font-display)}
+.phone-card small{color:#B9C0E2}
+@media (max-width:900px){.tracking-grid{grid-template-columns:1fr}}
+
+/* ============ SERVICIOS ============ */
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem;margin-top:2.6rem}
+.service-card{background:#fff;border:1px solid #F0E7D8;border-radius:var(--radius);padding:1.9rem 1.6rem;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s}
+.service-card::after{content:"";position:absolute;inset:auto -30% -55% auto;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,rgba(201,176,142,.22),transparent 70%);transition:transform .4s}
+.service-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-md);border-color:var(--sand)}
+.service-card:hover::after{transform:scale(1.35)}
+.service-card .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;margin-bottom:1.2rem;background:var(--red-soft);color:var(--red)}
+.service-card .ic svg{width:28px;height:28px}
+.service-card:nth-child(2) .ic{background:#E8ECFB;color:var(--navy)}
+.service-card:nth-child(3) .ic{background:var(--sand-soft);color:#9A7B48}
+.service-card:nth-child(4) .ic{background:#E4F7EB;color:#178a43}
+.service-card h3{font-size:1.12rem;margin-bottom:.6rem}
+.service-card p{color:var(--ink-soft);font-size:.92rem}
+.service-card .tag{position:absolute;top:1.2rem;right:1.2rem;background:var(--red);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .6rem;border-radius:99px}
+@media (max-width:1020px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.services-grid{grid-template-columns:1fr}}
+
+/* ============ PROCESO ============ */
+.process{background:#fff;border-block:1px solid #F0E7D8}
+.process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.8rem;counter-reset:step}
+.step{position:relative;background:var(--cream);border:1px solid #F0E7D8;border-radius:var(--radius);padding:2.4rem 1.7rem 1.9rem;transition:transform .3s,box-shadow .3s}
+.step:hover{transform:translateY(-7px);box-shadow:var(--shadow-md)}
+.step .num{position:absolute;top:-26px;left:1.5rem;width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;font-family:var(--font-display);font-weight:800;font-size:1.4rem;display:grid;place-items:center;box-shadow:0 12px 24px -10px rgba(190,58,71,.55)}
+.step h3{font-size:1.13rem;margin-bottom:.7rem;margin-top:.4rem}
+.step ul{display:grid;gap:.55rem}
+.step li{display:flex;gap:.6rem;color:var(--ink-soft);font-size:.92rem}
+.step li::before{content:"✓";color:var(--red);font-weight:800;flex:none}
+.step .foot{margin-top:1.1rem;padding-top:1rem;border-top:1px dashed #E3D7C3;font-size:.85rem;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:.5rem}
+.step .foot svg{width:16px;height:16px;flex:none}
+.process-arrow{position:absolute;top:38%;right:-1.15rem;width:2rem;color:var(--sand);display:grid;place-items:center;z-index:2}
+@media (max-width:900px){.process-grid{grid-template-columns:1fr;gap:2.4rem}.process-arrow{display:none}}
+
+/* ============ APARTADO POSTAL ============ */
+.apartado-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.apartado-visual{position:relative}
+.apartado-visual .frame{background:linear-gradient(160deg,var(--sand-soft),#fff);border:1px solid #EADFCE;border-radius:28px;padding:clamp(1.6rem,3vw,2.6rem);box-shadow:var(--shadow-md)}
+.route{display:flex;flex-direction:column;gap:0;position:relative}
+.route-node{display:flex;align-items:center;gap:1rem;background:#fff;border:1px solid #EFE6D6;border-radius:16px;padding:.9rem 1.2rem;box-shadow:0 10px 24px -18px rgba(35,25,20,.4);position:relative;z-index:1}
+.route-node .flag{font-size:1.7rem}
+.route-node b{font-family:var(--font-display);font-size:.98rem;display:block}
+.route-node small{color:var(--ink-soft);font-size:.8rem}
+.route-link{width:2px;height:26px;background:repeating-linear-gradient(var(--sand) 0 5px,transparent 5px 10px);margin-left:2.35rem}
+.route-dest{display:grid;grid-template-columns:repeat(5,1fr);gap:.55rem;margin-top:0}
+.route-dest .d{background:#fff;border:1px solid #EFE6D6;border-radius:14px;padding:.7rem .3rem;text-align:center;font-size:.72rem;font-weight:700;color:var(--ink-soft);transition:transform .25s,border-color .25s}
+.route-dest .d:hover{transform:translateY(-4px);border-color:var(--sand)}
+.route-dest .d span{display:block;font-size:1.55rem;margin-bottom:.25rem}
+.apartado-steps{display:grid;gap:1.1rem;margin-top:1.9rem}
+.a-step{display:flex;gap:1rem;align-items:flex-start}
+.a-step .n{width:34px;height:34px;flex:none;border-radius:10px;background:var(--red-soft);color:var(--red);font-weight:800;font-family:var(--font-display);display:grid;place-items:center;font-size:.95rem}
+.a-step b{display:block;margin-bottom:.15rem}
+.a-step p{color:var(--ink-soft);font-size:.93rem}
+.free-badge{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--gold),#c08a2c);color:#fff;font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:.45rem 1rem;border-radius:99px;box-shadow:0 10px 22px -10px rgba(192,138,44,.6);margin-bottom:1.1rem}
+@media (max-width:900px){.apartado-grid{grid-template-columns:1fr}}
+
+/* ============ MUDANZAS ============ */
+.mudanzas{background:linear-gradient(180deg,#fff, var(--sand-soft) 140%);border-block:1px solid #F0E7D8}
+.mudanzas-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.mudanzas-photo{position:relative;border-radius:28px;overflow:hidden;box-shadow:var(--shadow-lg);border:6px solid #fff;transform:rotate(-1.5deg)}
+.mudanzas-photo img{aspect-ratio:4/4.4;object-fit:cover;width:100%}
+.mudanzas-photo .chip{position:absolute;bottom:1.1rem;left:1.1rem;right:1.1rem;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-radius:14px;padding:.8rem 1rem;display:flex;align-items:center;gap:.8rem;font-weight:600;font-size:.88rem}
+.mudanzas-photo .chip svg{width:22px;height:22px;color:var(--red);flex:none}
+.why-list{display:grid;gap:.9rem;margin-top:1.8rem}
+.why{display:flex;gap:1rem;background:#fff;border:1px solid #F0E7D8;border-radius:16px;padding:1rem 1.2rem;transition:transform .25s,box-shadow .25s}
+.why:hover{transform:translateX(7px);box-shadow:0 12px 26px -18px rgba(35,25,20,.4)}
+.why .ic{width:40px;height:40px;flex:none;border-radius:12px;background:var(--sand-soft);color:#9A7B48;display:grid;place-items:center}
+.why .ic svg{width:20px;height:20px}
+.why b{display:block;font-size:.98rem}
+.why p{color:var(--ink-soft);font-size:.88rem}
+@media (max-width:900px){.mudanzas-grid{grid-template-columns:1fr}.mudanzas-photo{max-width:520px;margin-inline:auto}}
+
+/* ============ TESTIMONIOS ============ */
+.testimonials{overflow:hidden}
+.testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2.6rem}
+.t-card{background:#fff;border:1px solid #F0E7D8;border-radius:var(--radius);overflow:hidden;display:grid;grid-template-columns:210px 1fr;transition:transform .3s,box-shadow .3s}
+.t-card:hover{transform:translateY(-7px);box-shadow:var(--shadow-md)}
+.t-card .photo{position:relative;overflow:hidden}
+.t-card .photo img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .6s}
+.t-card:hover .photo img{transform:scale(1.06)}
+.t-card .body{padding:1.5rem 1.5rem 1.4rem;display:flex;flex-direction:column;gap:.7rem}
+.t-card .stars{color:var(--gold);letter-spacing:.15em;font-size:.95rem}
+.t-card blockquote{font-size:.95rem;color:var(--ink-soft);font-style:italic;flex:1}
+.t-card .who b{display:block;font-family:var(--font-display);font-size:.95rem}
+.t-card .who small{color:var(--ink-soft);display:inline-flex;align-items:center;gap:.35rem}
+@media (max-width:960px){.testimonials-grid{grid-template-columns:1fr}}
+@media (max-width:560px){.t-card{grid-template-columns:1fr}.t-card .photo img{aspect-ratio:16/10}}
+
+/* ============ CTA BANNER ============ */
+.cta-banner{position:relative;overflow:hidden;border-radius:calc(var(--radius) + 8px);background:linear-gradient(135deg,var(--red) 0%,var(--red-dark) 60%,#7c1f28 100%);color:#fff;padding:clamp(2.4rem,5vw,4rem);display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center;box-shadow:var(--shadow-lg)}
+.cta-banner::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.14) 1.2px,transparent 1.2px);background-size:24px 24px;mask-image:linear-gradient(115deg,transparent 40%,#000)}
+.cta-banner h2{color:#fff;font-size:clamp(1.6rem,3.2vw,2.4rem);letter-spacing:-.02em;margin-bottom:.8rem}
+.cta-banner p{color:#FBE3E5;max-width:480px}
+.cta-banner .actions{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:flex-end;position:relative}
+.cta-banner .btn-ghost{border-color:transparent}
+@media (max-width:860px){.cta-banner{grid-template-columns:1fr}.cta-banner .actions{justify-content:flex-start}}
+
+/* ============ CONTACTO / FOOTER ============ */
+.footer{background:var(--navy-ink);color:#C7CDEB;margin-top:clamp(70px,9vw,120px);position:relative}
+.footer::before{content:"";position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,var(--red),var(--sand),var(--navy))}
+.footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1.1fr;gap:2.5rem;padding:clamp(56px,7vw,84px) 0 2.5rem}
+.footer-logo{background:#fff;border-radius:16px;padding:.9rem 1.1rem;display:inline-block;margin-bottom:1.2rem}
+.footer-logo img{height:54px;width:auto}
+.footer p{font-size:.92rem}
+.footer h4{color:#fff;font-size:1rem;margin-bottom:1.1rem;letter-spacing:.02em}
+.footer-col ul{display:grid;gap:.6rem;font-size:.92rem}
+.footer-col a{opacity:.85;transition:opacity .2s,color .2s;display:inline-flex;align-items:center;gap:.5rem}
+.footer-col a:hover{opacity:1;color:var(--sand)}
+.footer-col svg{width:15px;height:15px;flex:none}
+.footer-social{display:flex;gap:.7rem;margin-top:1.3rem}
+.footer-social a{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.08);display:grid;place-items:center;transition:background .25s,transform .25s}
+.footer-social a:hover{background:var(--red);transform:translateY(-3px)}
+.footer-social svg{width:18px;height:18px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:1.3rem 0;font-size:.8rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;opacity:.75}
+@media (max-width:960px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.footer-grid{grid-template-columns:1fr}}
+
+/* ============ WHATSAPP FLOAT ============ */
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:70;width:60px;height:60px;border-radius:50%;background:#22b358;display:grid;place-items:center;box-shadow:0 14px 34px -8px rgba(34,179,88,.65);transition:transform .25s}
+.wa-float:hover{transform:scale(1.1)}
+.wa-float svg{width:32px;height:32px;fill:#fff}
+.wa-float::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(34,179,88,.5);animation:ring 2.2s infinite}
+@keyframes ring{0%{transform:scale(.85);opacity:1}100%{transform:scale(1.35);opacity:0}}
+
+/* back to top */
+.to-top{position:fixed;right:26px;bottom:96px;z-index:69;width:46px;height:46px;border-radius:14px;background:#fff;border:1px solid #EADFCE;color:var(--ink);display:grid;place-items:center;box-shadow:var(--shadow-md);opacity:0;pointer-events:none;transform:translateY(12px);transition:.3s}
+.to-top.show{opacity:1;pointer-events:auto;transform:none}
+.to-top svg{width:20px;height:20px}
+</style>
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-phones">
+      <a href="tel:+18317858487">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7A2 2 0 0 1 22 16.9z"/></svg>
+        +1 (831) 785-8487
+      </a>
+      <a href="tel:+18328660050">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7A2 2 0 0 1 22 16.9z"/></svg>
+        +1 (832) 866-0050
+      </a>
+    </div>
+    <div class="topbar-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+      Envíos de EE. UU. a México y Centroamérica · Sin límite de peso
+    </div>
+  </div>
+</div>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#inicio" class="nav-logo">
+      <img src="https://assets.zyrosite.com/AVLJ5W4V6yCrzx98/logo-2-YD0pbBvzbliyl6x4.png" alt="Paquetería y Encomiendas Mi Tierra">
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#inicio" class="active">Inicio</a>
+      <a href="#rastreo">Rastreo</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#apartado">Apartado Postal</a>
+      <a href="#mudanzas">Mudanzas</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="https://wa.me/18317858487?text=Hola%2C%20quiero%20cotizar%20un%20env%C3%ADo%20con%20Mi%20Tierra" target="_blank" rel="noopener">
+        Cotizar envío
+      </a>
+      <button class="nav-burger" id="burger" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-badge reveal"><span class="dot"></span> Salidas de contenedor cada semana</div>
+      <h1 class="reveal" data-delay="1">En Mi Tierra, tu encomienda <span class="accent">siempre llega<svg viewBox="0 0 300 20" preserveAspectRatio="none"><path d="M5 14 Q 150 2 295 12"/></svg></span></h1>
+      <p class="hero-lead reveal" data-delay="2">Paquetería y encomiendas internacionales <strong>desde Estados Unidos hasta la puerta de tu familia</strong>. Envío terrestre a México y marítimo a Centroamérica, <strong>sin límite de peso</strong>.</p>
+      <div class="hero-actions reveal" data-delay="2">
+        <a class="btn btn-whatsapp" href="https://wa.me/18317858487?text=Hola%2C%20quiero%20cotizar%20un%20env%C3%ADo%20con%20Mi%20Tierra" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5-.17-.02-.37-.02-.57-.02-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.48.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35M12.05 21.79h-.01a9.8 9.8 0 0 1-5-1.37l-.36-.21-3.72.97.99-3.62-.23-.37a9.77 9.77 0 0 1-1.5-5.22c0-5.4 4.4-9.8 9.83-9.8a9.76 9.76 0 0 1 9.8 9.81c0 5.41-4.4 9.81-9.8 9.81m8.34-18.15A11.72 11.72 0 0 0 12.05 .2C5.55.2.26 5.49.26 11.98c0 2.08.54 4.1 1.57 5.89L.16 24l6.27-1.64a11.78 11.78 0 0 0 5.61 1.43h.01c6.5 0 11.79-5.29 11.79-11.78 0-3.15-1.23-6.11-3.45-8.33"/></svg>
+          Cotizar por WhatsApp
+        </a>
+        <a class="btn btn-ghost" href="#rastreo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          Rastrear mi paquete
+        </a>
+      </div>
+      <div class="hero-countries reveal" data-delay="3">
+        <span class="country-chip"><span class="flag">🇲🇽</span> México</span>
+        <span class="country-chip"><span class="flag">🇬🇹</span> Guatemala</span>
+        <span class="country-chip"><span class="flag">🇭🇳</span> Honduras</span>
+        <span class="country-chip"><span class="flag">🇸🇻</span> El Salvador</span>
+        <span class="country-chip"><span class="flag">🇳🇮</span> Nicaragua</span>
+      </div>
+    </div>
+    <div class="hero-visual reveal" data-delay="2">
+      <div class="hero-photo">
+        <img src="https://assets.zyrosite.com/AVLJ5W4V6yCrzx98/aaa-YrDa5qX0eBUP4RQZ.png" alt="Encomienda Mi Tierra entregada de mano en mano">
+      </div>
+      <div class="hero-card c1">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+        </div>
+        <div><b>Sin límite de peso</b><small>Todo lo que alcance en tu caja</small></div>
+      </div>
+      <div class="hero-card c2">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <div><b>Entrega puerta a puerta</b><small>Recolectamos, enviamos y entregamos</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    <span><span class="star">✦</span> Envío terrestre a México</span>
+    <span><span class="star">✦</span> Marítimo a Centroamérica</span>
+    <span><span class="star">✦</span> Sin límite de peso</span>
+    <span><span class="star">✦</span> Recolección a domicilio</span>
+    <span><span class="star">✦</span> Apartado postal gratis</span>
+    <span><span class="star">✦</span> Mudanzas nacionales e internacionales</span>
+    <span><span class="star">✦</span> Rastreo en tiempo real</span>
+  </div>
+</div>
+
+<!-- ================= STATS ================= -->
+<section class="stats">
+  <div class="container stats-grid">
+    <div class="stat reveal"><b data-count="5">0</b><span>Países de destino</span></div>
+    <div class="stat reveal" data-delay="1"><b data-count="12000">0</b><span>Encomiendas entregadas</span></div>
+    <div class="stat reveal" data-delay="2"><b data-count="98">0</b><span>% de clientes satisfechos</span></div>
+    <div class="stat reveal" data-delay="3"><b data-count="52">0</b><span>Salidas de contenedor al año</span></div>
+  </div>
+</section>
+
+<!-- ================= RASTREO ================= -->
+<section class="section tracking" id="rastreo">
+  <div class="container tracking-grid">
+    <div class="reveal">
+      <div class="kicker">Rastreo en tiempo real</div>
+      <h2 class="section-title">Tu paquete, siempre a la vista</h2>
+      <p class="section-lead">Ingresa tu número de guía y consulta el estado de tu envío en cualquier momento. También puedes monitorearlo llamando a nuestro centro de atención.</p>
+      <div class="phone-cards">
+        <a class="phone-card" href="tel:+18317858487">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7A2 2 0 0 1 22 16.9z"/></svg></div>
+          <div><small>Call center</small><b>+1 (831) 785-8487</b></div>
+        </a>
+        <a class="phone-card" href="tel:+18328660050">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
+          <div><small>Pedidos de caja vacía</small><b>+1 (832) 866-0050</b></div>
+        </a>
+      </div>
+    </div>
+    <div class="reveal" data-delay="1">
+      <div class="tracking-box">
+        <h3 style="font-size:1.3rem">Seguimiento de envío</h3>
+        <p style="color:#C6CCE9;font-size:.92rem;margin-top:.3rem">Ingresa el número de guía para consultar el estado de tu paquete.</p>
+        <form class="tracking-form" id="trackForm">
+          <input type="text" id="trackInput" placeholder="Ej. MT-2026-04815" aria-label="Número de guía" autocomplete="off">
+          <button class="btn btn-primary" type="submit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            Consultar
+          </button>
+        </form>
+        <div class="timeline" id="timeline">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap;gap:.4rem">
+            <b id="tlGuide" style="font-family:var(--font-display)"></b>
+            <span style="background:rgba(34,179,88,.18);color:#7de3a6;font-size:.75rem;font-weight:700;padding:.3rem .8rem;border-radius:99px">EN TRÁNSITO</span>
+          </div>
+          <div class="tl-item done"><div class="tl-dot">✓</div><div><b>Paquete recolectado</b><small>Houston, TX · Recibido en bodega</small></div></div>
+          <div class="tl-item done"><div class="tl-dot">✓</div><div><b>Salida de contenedor</b><small>Puerto de Houston · Embarque confirmado</small></div></div>
+          <div class="tl-item current"><div class="tl-dot">●</div><div><b>En tránsito internacional</b><small>Rumbo a aduana de destino</small></div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div><b>En reparto local</b><small>Entrega puerta a puerta</small></div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div><b>Entregado a tu familia</b><small>Confirmación con fotografía</small></div></div>
+          <p class="tl-note">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            Demostración del sistema de rastreo. En la versión final se conecta vía API con el estatus real de tu envío.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICIOS ================= -->
+<section class="section" id="servicios">
+  <div class="container">
+    <div class="kicker reveal">Nuestros servicios</div>
+    <h2 class="section-title reveal" data-delay="1">Todo lo que necesitas para enviar a tu tierra</h2>
+    <p class="section-lead reveal" data-delay="2">Ropa, calzado, juguetes, electrodomésticos, menajes de casa ¡y mucho más! Nosotros nos encargamos de que llegue seguro.</p>
+    <div class="services-grid">
+      <article class="service-card reveal">
+        <span class="tag">Popular</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div>
+        <h3>Paquetería internacional</h3>
+        <p>Envíos desde EE. UU. a México y Centroamérica sin límite de peso. Todo lo que alcance en tu caja, por el mismo precio.</p>
+      </article>
+      <article class="service-card reveal" data-delay="1">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h3>Rastreo en tiempo real</h3>
+        <p>Nuestra app web rastrea el estatus de tu envío en tiempo real, disponible sin costo en nuestro sitio oficial.</p>
+      </article>
+      <article class="service-card reveal" data-delay="2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.5a2 2 0 0 1 .97-1.71l8-4.8a2 2 0 0 1 2.06 0l8 4.8A2 2 0 0 1 22 9.5Z"/><path d="M22 9 12 14.5 2 9"/></svg></div>
+        <h3>Apartado postal gratis</h3>
+        <p>Compra en línea en EE. UU., envía a nuestra oficina y nosotros lo hacemos llegar hasta tu domicilio, estés donde estés.</p>
+      </article>
+      <article class="service-card reveal" data-delay="3">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18h-5"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></div>
+        <h3>Mudanzas</h3>
+        <p>Servicio integral de mudanzas nacionales e internacionales: embalaje personalizado, seguimiento y asistencia completa.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESO ================= -->
+<section class="section process" id="proceso">
+  <div class="container">
+    <div class="kicker reveal">Así de fácil</div>
+    <h2 class="section-title reveal" data-delay="1">Proceso de envío en 3 pasos</h2>
+    <p class="section-lead reveal" data-delay="2">De tu puerta en Estados Unidos a la puerta de tu familia, nosotros nos encargamos de todo el camino.</p>
+    <div class="process-grid">
+      <div class="step reveal">
+        <div class="num">1</div>
+        <h3>Solicita tu caja vacía</h3>
+        <ul>
+          <li>Pídela por nuestras redes sociales o llamando al <b>+1 (832) 866-0050</b>.</li>
+          <li>Caja vacía gratis hasta tu domicilio al realizar tu envío con nosotros.</li>
+          <li>Se requiere un depósito de $40 USD que se descuenta del costo final.</li>
+        </ul>
+        <div class="foot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+          Llena tu caja sin preocuparte por el peso
+        </div>
+        <div class="process-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="26" height="26"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></div>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <div class="num">2</div>
+        <h3>Agenda tu recolección</h3>
+        <ul>
+          <li>Programa la recolección de tu paquete con anticipación.</li>
+          <li>Pasamos por tu caja a domicilio: cubrimos Texas, Arizona y California.</li>
+          <li>Empacamos y aseguramos tus artículos de forma profesional.</li>
+        </ul>
+        <div class="foot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+          Entrega oportuna y eficiente garantizada
+        </div>
+        <div class="process-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="26" height="26"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></div>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <div class="num">3</div>
+        <h3>Sigue tu envío hasta la entrega</h3>
+        <ul>
+          <li>Consulta las fechas de salida de nuestros contenedores.</li>
+          <li>Monitorea tu envío gratis con el rastreo en línea de nuestro sitio oficial.</li>
+          <li>Entregamos tu encomienda hasta la puerta de tu familia.</li>
+        </ul>
+        <div class="foot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+          Tu encomienda siempre llega
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APARTADO POSTAL ================= -->
+<section class="section" id="apartado">
+  <div class="container apartado-grid">
+    <div class="apartado-visual reveal">
+      <div class="frame">
+        <div class="route">
+          <div class="route-node">
+            <span class="flag">🇺🇸</span>
+            <div><b>Estados Unidos</b><small>Recibimos tus compras en nuestras oficinas</small></div>
+          </div>
+          <div class="route-link"></div>
+          <div class="route-node">
+            <span class="flag">📦</span>
+            <div><b>Mi Tierra</b><small>Empacamos y consolidamos por ti</small></div>
+          </div>
+          <div class="route-link"></div>
+          <div class="route-dest">
+            <div class="d"><span>🇲🇽</span>México</div>
+            <div class="d"><span>🇬🇹</span>Guatemala</div>
+            <div class="d"><span>🇭🇳</span>Honduras</div>
+            <div class="d"><span>🇸🇻</span>El Salvador</div>
+            <div class="d"><span>🇳🇮</span>Nicaragua</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" data-delay="1">
+      <span class="free-badge">✦ Servicio gratuito</span>
+      <div class="kicker">Apartado postal</div>
+      <h2 class="section-title">Compra en línea en EE. UU. sin salir de tu país</h2>
+      <p class="section-lead">Envía tus compras a donde estés, ¡sin complicaciones! Así de fácil es comprar en línea y recibir tus productos donde quieras.</p>
+      <div class="apartado-steps">
+        <div class="a-step">
+          <div class="n">1</div>
+          <div><b>¿Vives fuera de EE. UU. o en otro estado?</b><p>¡No hay problema! Compra en línea y envía tus productos directamente a nuestra oficina.</p></div>
+        </div>
+        <div class="a-step">
+          <div class="n">2</div>
+          <div><b>Nosotros nos encargamos del resto</b><p>Empaquetamos tus artículos de forma segura y profesional.</p></div>
+        </div>
+        <div class="a-step">
+          <div class="n">3</div>
+          <div><b>¡Tu paquete en camino!</b><p>Enviamos tu encomienda a la dirección que nos indiques, para que la recibas sin preocupaciones.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MUDANZAS ================= -->
+<section class="section mudanzas" id="mudanzas">
+  <div class="container mudanzas-grid">
+    <div class="reveal">
+      <div class="kicker">Servicio de mudanzas</div>
+      <h2 class="section-title">Mudarse no es solo trasladar objetos</h2>
+      <p class="section-lead">Es llevar consigo historias, recuerdos y sueños. Por eso ofrecemos un servicio integral de mudanzas que se adapta a tus necesidades, garantizando una experiencia tranquila y sin preocupaciones.</p>
+      <div class="why-list">
+        <div class="why">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg></div>
+          <div><b>Seguridad y confianza</b><p>Seguimiento y monitoreo avanzado, con seguros que cubren cualquier eventualidad.</p></div>
+        </div>
+        <div class="why">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div><b>Cobertura nacional e internacional</b><p>Dentro de la ciudad, a otra región o al extranjero: entrega puntual y segura de tus pertenencias.</p></div>
+        </div>
+        <div class="why">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg></div>
+          <div><b>Embalaje personalizado</b><p>Materiales de alta calidad para proteger desde cristalería y obras de arte hasta muebles y electrodomésticos.</p></div>
+        </div>
+        <div class="why">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div><b>Asistencia integral</b><p>De la planificación a la ejecución, nuestro equipo experto te acompaña en cada etapa de tu mudanza.</p></div>
+        </div>
+      </div>
+      <div style="margin-top:1.8rem">
+        <a class="btn btn-primary" href="https://wa.me/18317858487?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20mudanzas" target="_blank" rel="noopener">Cotizar mi mudanza</a>
+      </div>
+    </div>
+    <div class="reveal" data-delay="1">
+      <div class="mudanzas-photo">
+        <img src="https://assets.zyrosite.com/AVLJ5W4V6yCrzx98/38-mudanzas-YD047q2grDiLMoxZ.jpg" alt="Mudanza Mi Tierra: camión con muebles embalados frente a una casa">
+        <div class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+          Flexibilidad y adaptabilidad: paquetes a tu medida y presupuesto
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIOS ================= -->
+<section class="section testimonials" id="testimonios">
+  <div class="container">
+    <div class="kicker reveal">Entregas reales</div>
+    <h2 class="section-title reveal" data-delay="1">Familias felices en toda Centroamérica</h2>
+    <p class="section-lead reveal" data-delay="2">Transmitir amor, incluso en las tareas más simples como enviar una encomienda, puede marcar una gran diferencia. Así reciben nuestros clientes el cariño de los suyos.</p>
+    <div class="testimonials-grid">
+      <article class="t-card reveal">
+        <div class="photo">
+          <img src="https://assets.zyrosite.com/AVLJ5W4V6yCrzx98/imagen-de-whatsapp-2024-06-21-a-las-13.13.00_bcb7cbdd-ALpJqzvQj9u4gbJO.jpg" alt="Clienta recibiendo su encomienda Mi Tierra en su hogar">
+        </div>
+        <div class="body">
+          <div class="stars">★★★★★</div>
+          <blockquote>“Pude enviar una caja llena de regalos a mi familia sin preocuparme por el peso. Llegó en perfectas condiciones y en el tiempo estimado. Seguiré usando este servicio para mis seres queridos.”</blockquote>
+          <div class="who"><b>María López</b><small>🇸🇻 Entrega en El Salvador</small></div>
+        </div>
+      </article>
+      <article class="t-card reveal" data-delay="1">
+        <div class="photo">
+          <img src="https://assets.zyrosite.com/AVLJ5W4V6yCrzx98/vertical-8-A85pLe8nyJuMR926.png" alt="Cliente recibiendo su encomienda revisada por aduana">
+        </div>
+        <div class="body">
+          <div class="stars">★★★★★</div>
+          <blockquote>“Excelente servicio desde el principio. Mi familiar recibió la encomienda en el tiempo pactado, hasta la puerta de su casa. Recomiendo ampliamente a Mi Tierra. Calificación 10 de 10.”</blockquote>
+          <div class="who"><b>Juan Carlos Pérez</b><small>🇬🇹 Entrega en Guatemala</small></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="container reveal">
+  <div class="cta-banner" id="cotizar">
+    <div>
+      <h2>¿Listo para enviar amor a tu tierra?</h2>
+      <p>Pide hoy tu caja vacía gratis y nosotros nos encargamos del resto: recolección, envío y entrega hasta la puerta de tu familia.</p>
+    </div>
+    <div class="actions">
+      <a class="btn btn-whatsapp" href="https://wa.me/18317858487?text=Hola%2C%20quiero%20pedir%20mi%20caja%20vac%C3%ADa" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5-.17-.02-.37-.02-.57-.02-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.48.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35M12.05 21.79h-.01a9.8 9.8 0 0 1-5-1.37l-.36-.21-3.72.97.99-3.62-.23-.37a9.77 9.77 0 0 1-1.5-5.22c0-5.4 4.4-9.8 9.83-9.8a9.76 9.76 0 0 1 9.8 9.81c0 5.41-4.4 9.81-9.8 9.81m8.34-18.15A11.72 11.72 0 0 0 12.05 .2C5.55.2.26 5.49.26 11.98c0 2.08.54 4.1 1.57 5.89L.16 24l6.27-1.64a11.78 11.78 0 0 0 5.61 1.43h.01c6.5 0 11.79-5.29 11.79-11.78 0-3.15-1.23-6.11-3.45-8.33"/></svg>
+        Pedir mi caja vacía
+      </a>
+      <a class="btn btn-ghost" href="tel:+18328660050">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7A2 2 0 0 1 22 16.9z"/></svg>
+        Llamar ahora
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer" id="contacto">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-logo">
+          <img src="https://assets.zyrosite.com/AVLJ5W4V6yCrzx98/logo-2-YD0pbBvzbliyl6x4.png" alt="Paquetería y Encomiendas Mi Tierra">
+        </span>
+        <p>Paquetería y encomiendas internacionales desde Estados Unidos a México, Guatemala, Honduras, El Salvador y Nicaragua. En Mi Tierra, tu encomienda siempre llega.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.09 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.18 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.7.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.7 21.3.27 16.95.07 15.67.01 15.26 0 12 0m0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84M12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4m6.4-11.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#rastreo">Rastreo</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#apartado">Apartado Postal</a></li>
+          <li><a href="#mudanzas">Mudanzas</a></li>
+          <li><a href="#testimonios">Testimonios</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Destinos</h4>
+        <ul>
+          <li><a href="#apartado">🇲🇽 México</a></li>
+          <li><a href="#apartado">🇬🇹 Guatemala</a></li>
+          <li><a href="#apartado">🇭🇳 Honduras</a></li>
+          <li><a href="#apartado">🇸🇻 El Salvador</a></li>
+          <li><a href="#apartado">🇳🇮 Nicaragua</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="tel:+18317858487"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7A2 2 0 0 1 22 16.9z"/></svg> +1 (831) 785-8487</a></li>
+          <li><a href="tel:+18328660050"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7A2 2 0 0 1 22 16.9z"/></svg> +1 (832) 866-0050</a></li>
+          <li><a href="https://wa.me/18317858487" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5-.17-.02-.37-.02-.57-.02-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.48.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35M12.05 21.79h-.01a9.8 9.8 0 0 1-5-1.37l-.36-.21-3.72.97.99-3.62-.23-.37a9.77 9.77 0 0 1-1.5-5.22c0-5.4 4.4-9.8 9.83-9.8a9.76 9.76 0 0 1 9.8 9.81c0 5.41-4.4 9.81-9.8 9.81m8.34-18.15A11.72 11.72 0 0 0 12.05 .2C5.55.2.26 5.49.26 11.98c0 2.08.54 4.1 1.57 5.89L.16 24l6.27-1.64a11.78 11.78 0 0 0 5.61 1.43h.01c6.5 0 11.79-5.29 11.79-11.78 0-3.15-1.23-6.11-3.45-8.33"/></svg> WhatsApp</a></li>
+          <li><a href="https://encomiendasmitierra.com" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> encomiendasmitierra.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Paquetería y Encomiendas Mi Tierra. Todos los derechos reservados.</span>
+      <span>Demo de propuesta · Diseño moderno de una sola página</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= FLOTANTES ================= -->
+<a class="wa-float" href="https://wa.me/18317858487?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20env%C3%ADos" target="_blank" rel="noopener" aria-label="Chatear por WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5-.17-.02-.37-.02-.57-.02-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.48.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35M12.05 21.79h-.01a9.8 9.8 0 0 1-5-1.37l-.36-.21-3.72.97.99-3.62-.23-.37a9.77 9.77 0 0 1-1.5-5.22c0-5.4 4.4-9.8 9.83-9.8a9.76 9.76 0 0 1 9.8 9.81c0 5.41-4.4 9.81-9.8 9.81m8.34-18.15A11.72 11.72 0 0 0 12.05 .2C5.55.2.26 5.49.26 11.98c0 2.08.54 4.1 1.57 5.89L.16 24l6.27-1.64a11.78 11.78 0 0 0 5.61 1.43h.01c6.5 0 11.79-5.29 11.79-11.78 0-3.15-1.23-6.11-3.45-8.33"/></svg>
+</a>
+<button class="to-top" id="toTop" aria-label="Volver arriba">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
+<script>
+/* ---------- Menú móvil ---------- */
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  burger.classList.remove('open');
+  navLinks.classList.remove('open');
+}));
+
+/* ---------- Navbar con sombra + botón subir ---------- */
+const nav = document.getElementById('nav');
+const toTop = document.getElementById('toTop');
+addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', scrollY > 10);
+  toTop.classList.toggle('show', scrollY > 600);
+}, {passive:true});
+toTop.addEventListener('click', () => scrollTo({top:0, behavior:'smooth'}));
+
+/* ---------- Reveal on scroll ---------- */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, {threshold:.14});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ---------- Enlace activo según sección ---------- */
+const sections = [...document.querySelectorAll('section[id], footer[id]')];
+const menuLinks = [...navLinks.querySelectorAll('a')];
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting){
+      menuLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, {rootMargin:'-40% 0px -55% 0px'});
+sections.forEach(s => spy.observe(s));
+
+/* ---------- Contadores animados ---------- */
+const counterIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    counterIO.unobserve(e.target);
+    const el = e.target, target = +el.dataset.count, dur = 1600, t0 = performance.now();
+    const suffix = target >= 1000 ? '+' : (el.dataset.count === '98' ? '' : '');
+    (function tick(now){
+      const p = Math.min((now - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased).toLocaleString('es-MX') + (p === 1 ? suffix : '');
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+  });
+}, {threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el => counterIO.observe(el));
+
+/* ---------- Marquee: duplicar contenido para bucle continuo ---------- */
+const track = document.getElementById('marqueeTrack');
+track.innerHTML += track.innerHTML;
+
+/* ---------- Demo de rastreo ---------- */
+const trackForm = document.getElementById('trackForm');
+const trackInput = document.getElementById('trackInput');
+const timeline = document.getElementById('timeline');
+const tlGuide = document.getElementById('tlGuide');
+trackForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const code = trackInput.value.trim() || 'MT-2026-04815';
+  tlGuide.textContent = 'Guía ' + code.toUpperCase();
+  timeline.classList.remove('show');
+  void timeline.offsetWidth;            /* reinicia la animación */
+  timeline.classList.add('show');
+  timeline.scrollIntoView({behavior:'smooth', block:'nearest'});
+});
+</script>
+</body>
+</html>
