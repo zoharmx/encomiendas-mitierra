@@ -58,10 +58,14 @@ export function urlTracking(folio: string, origen?: string): string {
   return `${base}/tracking?folio=${encodeURIComponent(folio)}`;
 }
 
-/** Ciudades/estados sugeridos en el formulario (autocompletado, no una restricción). */
-export const ESTADOS_MX = [
-  'AGS', 'BC', 'BCS', 'CAMP', 'CHIS', 'CHIH', 'CDMX', 'COAH', 'COL', 'DGO',
-  'GTO', 'GRO', 'HGO', 'JAL', 'MEX', 'MICH', 'MOR', 'NAY', 'NL', 'OAX',
-  'PUE', 'QRO', 'QROO', 'SLP', 'SIN', 'SON', 'TAB', 'TAMPS', 'TLAX', 'VER',
-  'YUC', 'ZAC',
+/**
+ * Estados sugeridos en el formulario (autocompletado, no una restricción).
+ * La operación es en Estados Unidos: códigos USPS de 2 letras.
+ */
+export const ESTADOS_EEUU = [
+  'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL',
+  'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME',
+  'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH',
+  'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI',
+  'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY',
 ] as const;

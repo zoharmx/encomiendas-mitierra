@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Check, Copy, PackagePlus, PartyPopper, Send } from 'lucide-react';
 import { crearEnvio } from '@/lib/envios';
 import { useSesion } from '@/lib/auth-context';
-import { ESTADOS_MX, MENSAJES, urlTracking, urlWhatsApp } from '@/lib/config';
+import { ESTADOS_EEUU, MENSAJES, urlTracking, urlWhatsApp } from '@/lib/config';
 import { Boton } from '@/components/ui/Boton';
 import { Input, Select, Textarea } from '@/components/ui/Campo';
 import { Tarjeta, TituloTarjeta } from '@/components/ui/Tarjeta';
@@ -375,7 +375,7 @@ function SelectEstado({
       error={error}
     >
       <option value="">Elige un estado…</option>
-      {ESTADOS_MX.map((e) => (
+      {ESTADOS_EEUU.map((e) => (
         <option key={e} value={e}>
           {e}
         </option>
