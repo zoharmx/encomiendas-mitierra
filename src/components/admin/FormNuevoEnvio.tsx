@@ -136,7 +136,7 @@ export function FormNuevoEnvio() {
             telefono: soloDigitos(f.desTelefono),
             email: f.desEmail.trim(),
             ciudad: f.desCiudad.trim(),
-            estado: f.desEstado.trim().toUpperCase(),
+            estado: f.desEstado.trim(),
             direccion: f.desDireccion.trim(),
           },
           paquete: {
@@ -243,9 +243,11 @@ export function FormNuevoEnvio() {
             value={f.desCiudad} onChange={(e) => set('desCiudad', e.target.value)}
             error={errores.desCiudad}
           />
-          <SelectEstado
-            id="desEstado" value={f.desEstado}
-            onChange={(v) => set('desEstado', v)} error={errores.desEstado}
+          <Input
+            id="desEstado" etiqueta="Estado / Provincia / Departamento" required
+            value={f.desEstado} onChange={(e) => set('desEstado', e.target.value)}
+            error={errores.desEstado}
+            ayuda="El destino puede ser México o Centroamérica: escribe el estado, provincia o departamento."
           />
           <div className="sm:col-span-2">
             <Input
