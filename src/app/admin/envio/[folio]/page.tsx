@@ -22,7 +22,7 @@ import { Tarjeta, TituloTarjeta } from '@/components/ui/Tarjeta';
 import { Boton } from '@/components/ui/Boton';
 import { IconoEstatus } from '@/components/ui/IconoEstatus';
 import { fechaHora } from '@/lib/fechas';
-import { MENSAJES, urlTracking, urlWhatsApp } from '@/lib/config';
+import { MENSAJES, telefonoInternacional, urlTracking, urlWhatsApp } from '@/lib/config';
 import type { Envio, EventoHistorial, Persona } from '@/types';
 
 export default function DetalleEnvio() {
@@ -78,10 +78,10 @@ export default function DetalleEnvio() {
   }
 
   const enlacePublico = urlTracking(envio.folio);
-  const telefonoDestinatario =
-    envio.destinatario.telefono.length === 10
-      ? `52${envio.destinatario.telefono}`
-      : envio.destinatario.telefono;
+  const telefonoDestinatario = telefonoInternacional(
+    envio.destinatario.telefono,
+    envio.destinatario.pais,
+  );
 
   return (
     <div className="space-y-6">
@@ -141,7 +141,7 @@ export default function DetalleEnvio() {
                 etiqueta="Valor declarado"
                 valor={
                   envio.paquete.valorDeclarado
-                    ? `$${envio.paquete.valorDeclarado.toLocaleString('es-MX')}`
+                    ? `$${envio.paquete.valorDeclarado.toLocaleString('en-US')} USD`
                     : 'No declarado'
                 }
               />
@@ -151,7 +151,7 @@ export default function DetalleEnvio() {
               />
               <Dato
                 etiqueta="Costo"
-                valor={`$${envio.servicio.costo.toLocaleString('es-MX')} ${envio.servicio.moneda}`}
+                valor={`$${envio.servicio.costo.toLocaleString('en-US')} ${envio.servicio.moneda}`}
               />
               <Dato
                 etiqueta="Pago"
@@ -245,7 +245,7 @@ function FichaPersona({ titulo, persona }: { titulo: string; persona: Persona })
             {persona.direccion}
             <br />
             <span className="text-slate-400">
-              {persona.ciudad}, {persona.estado}
+              {persona.ciudad}, {persona.estado} — {persona.pais}
             </span>
           </span>
         </p>

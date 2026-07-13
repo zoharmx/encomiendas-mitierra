@@ -5,7 +5,14 @@ import Link from 'next/link';
 import { Check, Copy, PackagePlus, PartyPopper, Send } from 'lucide-react';
 import { crearEnvio } from '@/lib/envios';
 import { useSesion } from '@/lib/auth-context';
-import { ESTADOS_EEUU, MENSAJES, urlTracking, urlWhatsApp } from '@/lib/config';
+import {
+  ESTADOS_EEUU,
+  MENSAJES,
+  PAISES_DESTINO,
+  telefonoInternacional,
+  urlTracking,
+  urlWhatsApp,
+} from '@/lib/config';
 import { Boton } from '@/components/ui/Boton';
 import { Input, Select, Textarea } from '@/components/ui/Campo';
 import { Tarjeta, TituloTarjeta } from '@/components/ui/Tarjeta';
@@ -23,6 +30,7 @@ interface Formulario {
 
   desNombre: string;
   desTelefono: string;
+  desPais: string;
   desEmail: string;
   desCiudad: string;
   desEstado: string;
@@ -43,7 +51,7 @@ interface Formulario {
 
 const VACIO: Formulario = {
   remNombre: '', remTelefono: '', remEmail: '', remCiudad: '', remEstado: '', remDireccion: '',
-  desNombre: '', desTelefono: '', desEmail: '', desCiudad: '', desEstado: '', desDireccion: '',
+  desNombre: '', desTelefono: '', desPais: '', desEmail: '', desCiudad: '', desEstado: '', desDireccion: '',
   descripcion: '', piezas: '1', pesoKg: '', valorDeclarado: '',
   tipo: 'terrestre', costo: '', pagado: 'no', formaPago: '',
   notasInternas: '',
@@ -54,16 +62,24 @@ type Errores = Partial<Record<keyof Formulario, string>>;
 function validar(f: Formulario): Errores {
   const e: Errores = {};
   const requerido = 'Este dato es obligatorio.';
-  const telefonoInvalido = 'El teléfono debe tener 10 dígitos.';
 
   if (!f.remNombre.trim()) e.remNombre = requerido;
-  if (soloDigitos(f.remTelefono).length !== 10) e.remTelefono = telefonoInvalido;
+  // El remitente siempre se recolecta en EE. UU.: el teléfono es de 10 dígitos.
+  if (soloDigitos(f.remTelefono).length !== 10) {
+    e.remTelefono = 'El teléfono debe tener 10 dígitos.';
+  }
   if (!f.remCiudad.trim()) e.remCiudad = requerido;
   if (!f.remEstado.trim()) e.remEstado = requerido;
   if (!f.remDireccion.trim()) e.remDireccion = requerido;
 
   if (!f.desNombre.trim()) e.desNombre = requerido;
-  if (soloDigitos(f.desTelefono).length !== 10) e.desTelefono = telefonoInvalido;
+  // El destinatario puede estar en EE. UU./México (10 dígitos) o Centroamérica
+  // (7-8 dígitos, según el país): se acepta un rango en vez de un número fijo.
+  const digitosDestino = soloDigitos(f.desTelefono).length;
+  if (digitosDestino < 7 || digitosDestino > 10) {
+    e.desTelefono = 'Revisa el teléfono: debe tener entre 7 y 10 dígitos.';
+  }
+  if (!f.desPais) e.desPais = requerido;
   if (!f.desCiudad.trim()) e.desCiudad = requerido;
   if (!f.desEstado.trim()) e.desEstado = requerido;
   if (!f.desDireccion.trim()) e.desDireccion = requerido;
@@ -130,6 +146,8 @@ export function FormNuevoEnvio() {
             ciudad: f.remCiudad.trim(),
             estado: f.remEstado.trim().toUpperCase(),
             direccion: f.remDireccion.trim(),
+            // El remitente siempre se recolecta en EE. UU.
+            pais: 'Estados Unidos',
           },
           destinatario: {
             nombre: f.desNombre.trim(),
@@ -138,6 +156,7 @@ export function FormNuevoEnvio() {
             ciudad: f.desCiudad.trim(),
             estado: f.desEstado.trim(),
             direccion: f.desDireccion.trim(),
+            pais: f.desPais,
           },
           paquete: {
             descripcion: f.descripcion.trim(),
@@ -149,7 +168,7 @@ export function FormNuevoEnvio() {
           servicio: {
             tipo: f.tipo,
             costo: Number(f.costo),
-            moneda: 'MXN',
+            moneda: 'USD',
             pagado: f.pagado === 'si',
             formaPago: f.formaPago.trim() || null,
           },
@@ -174,6 +193,7 @@ export function FormNuevoEnvio() {
       <Exito
         folio={folioCreado}
         telefonoCliente={soloDigitos(f.desTelefono)}
+        paisCliente={f.desPais}
         onOtro={() => {
           setF(VACIO);
           setFolioCreado(null);
@@ -232,9 +252,21 @@ export function FormNuevoEnvio() {
             error={errores.desNombre} ayuda="En el rastreo público solo se muestran sus iniciales."
             autoComplete="off"
           />
+          <Select
+            id="desPais" etiqueta="País" required value={f.desPais}
+            onChange={(e) => set('desPais', e.target.value)} error={errores.desPais}
+            ayuda="Determina el código con el que se le escribe por WhatsApp."
+          >
+            <option value="">Elige un país…</option>
+            {PAISES_DESTINO.map((p) => (
+              <option key={p.nombre} value={p.nombre}>
+                {p.nombre}
+              </option>
+            ))}
+          </Select>
           <Input
             id="desTelefono" etiqueta="Teléfono" required inputMode="tel"
-            placeholder="10 dígitos" value={f.desTelefono}
+            placeholder="Sin código de país" value={f.desTelefono}
             onChange={(e) => set('desTelefono', e.target.value)} error={errores.desTelefono}
             ayuda="Sirve para mandarle el enlace de rastreo por WhatsApp."
           />
@@ -247,7 +279,6 @@ export function FormNuevoEnvio() {
             id="desEstado" etiqueta="Estado / Provincia / Departamento" required
             value={f.desEstado} onChange={(e) => set('desEstado', e.target.value)}
             error={errores.desEstado}
-            ayuda="El destino puede ser México o Centroamérica: escribe el estado, provincia o departamento."
           />
           <div className="sm:col-span-2">
             <Input
@@ -289,7 +320,7 @@ export function FormNuevoEnvio() {
             <Input
               id="valorDeclarado" etiqueta="Valor declarado (opcional)" type="number" min={0}
               value={f.valorDeclarado} onChange={(e) => set('valorDeclarado', e.target.value)}
-              error={errores.valorDeclarado} ayuda="En pesos. Déjalo vacío si no se declara."
+              error={errores.valorDeclarado} ayuda="En dólares. Déjalo vacío si no se declara."
             />
           </div>
         </div>
@@ -306,7 +337,7 @@ export function FormNuevoEnvio() {
             <option value="aereo">Aéreo</option>
           </Select>
           <Input
-            id="costo" etiqueta="Costo (MXN)" required type="number" min={0} step="0.01"
+            id="costo" etiqueta="Costo (USD)" required type="number" min={0} step="0.01"
             value={f.costo} onChange={(e) => set('costo', e.target.value)} error={errores.costo}
           />
           <Select
@@ -390,10 +421,12 @@ function SelectEstado({
 function Exito({
   folio,
   telefonoCliente,
+  paisCliente,
   onOtro,
 }: {
   folio: string;
   telefonoCliente: string;
+  paisCliente: string;
   onOtro: () => void;
 }) {
   const [copiado, setCopiado] = useState(false);
@@ -409,8 +442,7 @@ function Exito({
     }
   }
 
-  // El teléfono del destinatario son 10 dígitos nacionales: se antepone 52 (México).
-  const destino = telefonoCliente.length === 10 ? `52${telefonoCliente}` : telefonoCliente;
+  const destino = telefonoInternacional(telefonoCliente, paisCliente);
 
   return (
     <Tarjeta className="text-center">

@@ -60,38 +60,43 @@ const EJEMPLOS: Array<{
   destinatario: string;
   origen: [string, string];
   destino: [string, string];
+  paisDestino: string;
   descripcion: string;
   piezas: number;
   hasta: Estatus[];
 }> = [
   {
     destinatario: 'Juana Ramírez López',
-    origen: ['Monterrey', 'NL'],
-    destino: ['Guadalajara', 'JAL'],
+    origen: ['Houston', 'TX'],
+    destino: ['Guadalajara', 'Jalisco'],
+    paisDestino: 'México',
     descripcion: '2 cajas de ropa',
     piezas: 2,
     hasta: ['recolectado', 'en_bodega', 'en_transito'],
   },
   {
     destinatario: 'Carlos Mendoza',
-    origen: ['CDMX', 'CDMX'],
-    destino: ['Mérida', 'YUC'],
+    origen: ['Miami', 'FL'],
+    destino: ['Ciudad de Guatemala', 'Guatemala'],
+    paisDestino: 'Guatemala',
     descripcion: '1 caja con utensilios de cocina',
     piezas: 1,
     hasta: ['recolectado', 'en_bodega', 'en_transito', 'en_destino', 'en_reparto', 'entregado'],
   },
   {
     destinatario: 'Rosa Elena Vidal',
-    origen: ['Puebla', 'PUE'],
-    destino: ['Tijuana', 'BC'],
+    origen: ['Los Angeles', 'CA'],
+    destino: ['Tegucigalpa', 'Francisco Morazán'],
+    paisDestino: 'Honduras',
     descripcion: '3 cajas de regalos',
     piezas: 3,
     hasta: ['recolectado', 'en_bodega', 'incidencia'],
   },
   {
     destinatario: 'Miguel Ángel Torres',
-    origen: ['Saltillo', 'COAH'],
-    destino: ['León', 'GTO'],
+    origen: ['San Antonio', 'TX'],
+    destino: ['San José', 'San José'],
+    paisDestino: 'Costa Rica',
     descripcion: '1 sobre con documentos',
     piezas: 1,
     hasta: [],
@@ -115,19 +120,21 @@ for (const ej of EJEMPLOS) {
     {
       remitente: {
         nombre: 'Pedro Salinas',
-        telefono: '8112345678',
-        email: 'pedro@ejemplo.mx',
+        telefono: '8321234567',
+        email: 'pedro@ejemplo.com',
         ciudad: ej.origen[0],
         estado: ej.origen[1],
-        direccion: 'Av. Constitución 1234, Centro',
+        direccion: '1234 Main St, Suite 2',
+        pais: 'Estados Unidos',
       },
       destinatario: {
         nombre: ej.destinatario,
-        telefono: '3312345678',
+        telefono: '33123456',
         email: '',
         ciudad: ej.destino[0],
         estado: ej.destino[1],
         direccion: 'Calle Hidalgo 567, Col. Americana',
+        pais: ej.paisDestino,
       },
       paquete: {
         descripcion: ej.descripcion,
@@ -139,7 +146,7 @@ for (const ej of EJEMPLOS) {
       servicio: {
         tipo: 'terrestre',
         costo: 450,
-        moneda: 'MXN',
+        moneda: 'USD',
         pagado: false,
         formaPago: null,
       },

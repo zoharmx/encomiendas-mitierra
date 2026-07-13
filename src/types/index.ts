@@ -42,6 +42,8 @@ export interface Persona {
   ciudad: string;
   estado: string;
   direccion: string;
+  /** Necesario para saber qué código de llamada anteponer al armar el enlace de WhatsApp. */
+  pais: string;
 }
 
 export interface Envio {
@@ -65,7 +67,7 @@ export interface Envio {
   servicio: {
     tipo: 'terrestre' | 'aereo';
     costo: number;
-    moneda: 'MXN';
+    moneda: 'USD';
     pagado: boolean;
     formaPago?: string | null;
   };

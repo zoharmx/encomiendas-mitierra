@@ -38,8 +38,12 @@ export const ESTATUS_ACTIVOS: readonly Estatus[] = FLUJO_ESTATUS.filter(
 /**
  * Transiciones que el panel ofrece desde un estatus dado.
  *
- * Regla del negocio (deliberadamente simple):
- *   - desde un estatus del flujo → el SIGUIENTE del flujo, + incidencia + cancelado
+ * Regla del negocio:
+ *   - desde un estatus del flujo → cualquier estatus POSTERIOR del flujo
+ *     (recolectado, en bodega, en tránsito… hasta entregado), + incidencia
+ *     + cancelado. Se ofrecen todos los pasos que faltan, no solo el
+ *     siguiente, porque el operador puede estar registrando un envío que
+ *     ya avanzó varios pasos sin que nadie alcanzara a actualizarlo antes.
  *   - desde `incidencia`         → se puede retomar el flujo en cualquier punto,
  *     porque una incidencia se resuelve volviendo a donde estaba el paquete
  *   - desde `entregado` o `cancelado` → ninguna (son finales)
@@ -54,8 +58,8 @@ export function transicionesValidas(actual: Estatus): Estatus[] {
     return [...FLUJO_ESTATUS, 'cancelado'];
   }
 
-  const siguiente = FLUJO_ESTATUS[indiceFlujo(actual) + 1];
-  return [...(siguiente ? [siguiente] : []), ...ESTATUS_FUERA_DE_FLUJO];
+  const restantes = FLUJO_ESTATUS.slice(indiceFlujo(actual) + 1);
+  return [...restantes, ...ESTATUS_FUERA_DE_FLUJO];
 }
 
 /** Etiqueta legible para el cliente. */

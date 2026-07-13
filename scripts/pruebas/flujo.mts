@@ -95,19 +95,21 @@ const folio = await crearEnvio(
   {
     remitente: {
       nombre: 'Pedro Salinas',
-      telefono: '8112345678',
-      email: 'pedro@ejemplo.mx',
-      ciudad: 'Monterrey',
-      estado: 'NL',
-      direccion: 'Av. Constitución 1234, Centro',
+      telefono: '8321234567',
+      email: 'pedro@ejemplo.com',
+      ciudad: 'Houston',
+      estado: 'TX',
+      direccion: '1234 Main St',
+      pais: 'Estados Unidos',
     },
     destinatario: {
       nombre: 'Juana Ramírez López',
-      telefono: '3312345678',
+      telefono: '33123456',
       email: 'juana@ejemplo.mx',
       ciudad: 'Guadalajara',
-      estado: 'JAL',
+      estado: 'Jalisco',
       direccion: 'Calle Hidalgo 567, Americana',
+      pais: 'México',
     },
     paquete: {
       descripcion: '2 cajas de ropa',
@@ -119,7 +121,7 @@ const folio = await crearEnvio(
     servicio: {
       tipo: 'terrestre',
       costo: 450,
-      moneda: 'MXN',
+      moneda: 'USD',
       pagado: false,
       formaPago: null,
     },
@@ -136,8 +138,8 @@ const publico = await consultarTracking(folio);
 
 afirmar(publico !== null, 'El envío aparece en el tracking público');
 afirmar(publico?.estatus === 'registrado', 'Su estatus inicial es "registrado"');
-afirmar(publico?.origen === 'Monterrey, NL', 'El origen es la ciudad+estado del remitente');
-afirmar(publico?.destino === 'Guadalajara, JAL', 'El destino es la ciudad+estado del destinatario');
+afirmar(publico?.origen === 'Houston, TX', 'El origen es la ciudad+estado del remitente');
+afirmar(publico?.destino === 'Guadalajara, Jalisco', 'El destino es la ciudad+estado del destinatario');
 afirmar(publico?.destinatarioIniciales === 'J.R.', 'Solo se publican las INICIALES del destinatario');
 afirmar(publico?.piezas === 2, 'Las piezas se publican');
 afirmar(publico?.historial.length === 1, 'El historial público arranca con 1 evento');
@@ -145,12 +147,12 @@ afirmar(publico?.historial.length === 1, 'El historial público arranca con 1 ev
 // --- 3. LA invariante: nada privado se filtró al espejo ---
 const serializado = JSON.stringify(publico);
 const privados = [
-  ['8112345678', 'el teléfono del remitente'],
-  ['3312345678', 'el teléfono del destinatario'],
-  ['Av. Constitución', 'la dirección del remitente'],
+  ['8321234567', 'el teléfono del remitente'],
+  ['33123456', 'el teléfono del destinatario'],
+  ['1234 Main St', 'la dirección del remitente'],
   ['Calle Hidalgo', 'la dirección del destinatario'],
   ['Cliente frecuente', 'las notas internas'],
-  ['pedro@ejemplo.mx', 'el correo del remitente'],
+  ['pedro@ejemplo.com', 'el correo del remitente'],
   ['Juana Ramírez López', 'el nombre completo del destinatario'],
   ['450', 'el costo del servicio'],
 ] as const;
@@ -166,7 +168,7 @@ afirmar(
   'El documento interno SÍ conserva las notas internas',
 );
 afirmar(
-  interno?.destinatario?.telefono === '3312345678',
+  interno?.destinatario?.telefono === '33123456',
   'El documento interno SÍ conserva el teléfono del destinatario',
 );
 
@@ -212,15 +214,15 @@ afirmar(internoFinal?.entregadoEn != null, 'Al entregar se sella la fecha de ent
 const segundo = await crearEnvio(
   {
     remitente: {
-      nombre: 'Ana Ruiz', telefono: '8199999999', ciudad: 'Saltillo',
-      estado: 'COAH', direccion: 'Calle 1',
+      nombre: 'Ana Ruiz', telefono: '8199999999', ciudad: 'San Antonio',
+      estado: 'TX', direccion: 'Calle 1', pais: 'Estados Unidos',
     },
     destinatario: {
-      nombre: 'Luis Mora', telefono: '5599999999', ciudad: 'CDMX',
-      estado: 'CDMX', direccion: 'Calle 2',
+      nombre: 'Luis Mora', telefono: '22334455', ciudad: 'San Salvador',
+      estado: 'San Salvador', direccion: 'Calle 2', pais: 'El Salvador',
     },
     paquete: { descripcion: '1 sobre', piezas: 1, pesoKg: 0.5, valorDeclarado: null, fotoUrl: null },
-    servicio: { tipo: 'aereo', costo: 200, moneda: 'MXN', pagado: true, formaPago: 'efectivo' },
+    servicio: { tipo: 'aereo', costo: 200, moneda: 'USD', pagado: true, formaPago: 'efectivo' },
     notasInternas: '',
     creadoPor: uid,
   },

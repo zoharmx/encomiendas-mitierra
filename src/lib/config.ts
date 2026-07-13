@@ -69,3 +69,31 @@ export const ESTADOS_EEUU = [
   'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI',
   'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY',
 ] as const;
+
+/**
+ * Países de destino que cubre la ruta de la empresa (EE. UU. → México y
+ * Centroamérica), con su código de llamada. Necesario porque EE. UU. y
+ * México comparten longitud de 10 dígitos: no se puede adivinar el país
+ * a partir del teléfono, hay que preguntarlo.
+ */
+export const PAISES_DESTINO = [
+  { nombre: 'Estados Unidos', codigo: '1' },
+  { nombre: 'México', codigo: '52' },
+  { nombre: 'Guatemala', codigo: '502' },
+  { nombre: 'Belice', codigo: '501' },
+  { nombre: 'El Salvador', codigo: '503' },
+  { nombre: 'Honduras', codigo: '504' },
+  { nombre: 'Nicaragua', codigo: '505' },
+  { nombre: 'Costa Rica', codigo: '506' },
+  { nombre: 'Panamá', codigo: '507' },
+] as const;
+
+/** Código de llamada del país, para anteponerlo al armar un enlace de WhatsApp. */
+export function codigoLlamada(pais: string): string {
+  return PAISES_DESTINO.find((p) => p.nombre === pais)?.codigo ?? '1';
+}
+
+/** Teléfono en formato internacional (sin "+"), listo para un enlace wa.me. */
+export function telefonoInternacional(telefono: string, pais: string): string {
+  return `${codigoLlamada(pais)}${telefono}`;
+}
