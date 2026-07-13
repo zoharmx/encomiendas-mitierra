@@ -1,0 +1,34 @@
+rules_version = '2';
+
+// Fotos de paquetes / evidencia de entrega.
+// Solo staff sube; lectura pública solo de las fotos marcadas como públicas.
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function esStaff() {
+      return request.auth != null
+        && firestore.exists(/databases/(default)/documents/usuarios/$(request.auth.uid))
+        && firestore.get(/databases/(default)/documents/usuarios/$(request.auth.uid)).data.activo == true;
+    }
+
+    // Fotos internas del paquete (no se exponen en el tracking público)
+    match /envios/{envioId}/{archivo} {
+      allow read: if esStaff();
+      allow write: if esStaff()
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // Evidencia de entrega mostrable al cliente en la página pública
+    match /evidencia/{folio}/{archivo} {
+      allow read: if true;
+      allow write: if esStaff()
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

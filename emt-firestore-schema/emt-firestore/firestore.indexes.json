@@ -1,0 +1,37 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "envios",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "estatus", "order": "ASCENDING" },
+        { "fieldPath": "creadoEn", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "envios",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "servicio.pagado", "order": "ASCENDING" },
+        { "fieldPath": "creadoEn", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "envios",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "destinatario.ciudad", "order": "ASCENDING" },
+        { "fieldPath": "estatus", "order": "ASCENDING" },
+        { "fieldPath": "creadoEn", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "historial",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "fecha", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

@@ -1,0 +1,99 @@
+@import 'tailwindcss';
+
+/*
+  Tema oscuro por defecto. Los tokens de marca viven aquí (y el resto del
+  branding en src/lib/config.ts): para re-marcar el producto no hay que tocar
+  ningún componente.
+*/
+@theme {
+  --color-marca-de: #3b82f6; /* azul  — inicio del gradiente de acento */
+  --color-marca-a: #8b5cf6; /* violeta — fin del gradiente de acento */
+  --font-sans: var(--fuente-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #020617; /* slate-950 */
+  color: #e2e8f0; /* slate-200 */
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Fondo: gradiente sutil animado. Vive detrás de todo, no captura clics. */
+.fondo-animado {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 60rem at 15% -10%, rgba(59, 130, 246, 0.14), transparent 60%),
+    radial-gradient(50rem 50rem at 90% 5%, rgba(139, 92, 246, 0.12), transparent 60%),
+    radial-gradient(45rem 45rem at 50% 110%, rgba(59, 130, 246, 0.08), transparent 60%),
+    linear-gradient(180deg, #0f172a 0%, #020617 100%);
+  animation: respirar 18s ease-in-out infinite;
+}
+
+@keyframes respirar {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+
+/* Tarjeta glassmorphism: el patrón visual base de toda la app. */
+@utility vidrio {
+  background-color: rgb(255 255 255 / 0.04);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgb(255 255 255 / 0.1);
+}
+
+/* Texto con el gradiente de acento. */
+@utility texto-acento {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-marca-de),
+    var(--color-marca-a)
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+/* Punto activo del timeline: late para señalar dónde va el paquete ahora. */
+@keyframes pulso-activo {
+  0% {
+    box-shadow: 0 0 0 0 rgb(59 130 246 / 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgb(59 130 246 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(59 130 246 / 0);
+  }
+}
+
+@utility pulso {
+  animation: pulso-activo 2s infinite;
+}
+
+/* Respeta a quien pidió menos movimiento en su sistema. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

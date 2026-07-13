@@ -1,0 +1,94 @@
+rules_version = '2';
+
+// ============================================================
+// Encomiendas Mi Tierra — Reglas de seguridad Firestore
+//
+// Modelo:
+//   tracking/{folio}  -> lectura PÚBLICA por ID (nunca listable),
+//                        escritura solo admin
+//   envios/{id}       -> solo staff autenticado
+//   usuarios/{uid}    -> el usuario lee lo suyo; solo admin escribe
+//
+// Regla de oro: el cliente NUNCA escribe nada. Todas las escrituras
+// pasan por un usuario staff autenticado desde el panel admin.
+// ============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------- Helpers ----------
+    function estaAutenticado() {
+      return request.auth != null;
+    }
+
+    function perfil() {
+      return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data;
+    }
+
+    function esStaff() {
+      return estaAutenticado()
+        && exists(/databases/$(database)/documents/usuarios/$(request.auth.uid))
+        && perfil().activo == true
+        && perfil().rol in ['admin', 'operador'];
+    }
+
+    function esAdmin() {
+      return estaAutenticado()
+        && exists(/databases/$(database)/documents/usuarios/$(request.auth.uid))
+        && perfil().activo == true
+        && perfil().rol == 'admin';
+    }
+
+    // Campos permitidos en el espejo público. Si alguien intenta escribir
+    // un campo de más (teléfono, dirección, notas), la escritura se rechaza.
+    function espejoSoloCamposPublicos() {
+      return request.resource.data.keys().hasOnly([
+        'folio', 'estatus', 'creadoEn', 'actualizadoEn',
+        'origen', 'destino', 'destinatarioIniciales', 'piezas', 'historial'
+      ]);
+    }
+
+    // ---------- tracking/{folio} : espejo público ----------
+    match /tracking/{folio} {
+      // get: cualquiera que conozca el folio exacto puede leerlo.
+      // list: NADIE — impide enumerar/cosechar la colección completa.
+      allow get: if true;
+      allow list: if esStaff();
+
+      allow create, update: if esStaff() && espejoSoloCamposPublicos();
+      allow delete: if esAdmin();
+    }
+
+    // ---------- envios/{envioId} : datos internos completos ----------
+    match /envios/{envioId} {
+      allow read: if esStaff();
+      allow create, update: if esStaff();
+      allow delete: if esAdmin();   // preferir estatus 'cancelado' sobre borrar
+
+      // ---------- historial : subcolección interna ----------
+      match /historial/{eventoId} {
+        allow read: if esStaff();
+        allow create: if esStaff();
+        // El historial es inmutable: no se edita ni se borra.
+        allow update, delete: if false;
+      }
+    }
+
+    // ---------- usuarios/{uid} ----------
+    match /usuarios/{uid} {
+      allow read: if estaAutenticado() && (request.auth.uid == uid || esStaff());
+      // Solo un admin da de alta/baja staff. Nadie se auto-promueve.
+      allow create, update, delete: if esAdmin();
+    }
+
+    // ---------- contadores ----------
+    match /contadores/{doc} {
+      allow read, write: if esStaff();
+    }
+
+    // ---------- Todo lo demás: denegado ----------
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
