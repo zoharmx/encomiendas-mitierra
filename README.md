@@ -148,15 +148,37 @@ se queda vacío porque Firestore rechaza todas sus lecturas.
 ⚠️ **Nunca Vercel Hobby**: su licencia gratuita prohíbe el uso comercial, y
 encomiendasmitierra.com es un negocio.
 
-Esta app **necesita un servidor** (tiene una API route y un middleware), así que
-**Firebase Hosting a secas no basta**: en el plan Spark, Hosting solo sirve archivos
-estáticos, y el SSR de Next exige Cloud Functions (plan Blaze, con tarjeta).
+Esta app **necesita un servidor** (tiene una API route y un middleware). El
+proyecto activó el **plan Blaze**, así que hoy se publica en
+**Firebase App Hosting** (el producto de Firebase para frameworks full-stack como
+Next.js — todo en un solo panel, sin salir de Firebase):
 
-**Opción recomendada: Cloudflare Workers** — gratis, permite uso comercial, corre Next
-completo. Los detalles paso a paso están en
-[`docs/PUESTA-EN-MARCHA.md`](docs/PUESTA-EN-MARCHA.md#5-publicar-el-sitio).
+```bash
+firebase deploy --only apphosting
+```
 
-Las reglas e índices de Firestore se despliegan aparte, y eso sí es Firebase:
+La configuración (región, recursos, variables de entorno) vive en
+[`apphosting.yaml`](apphosting.yaml) — las `NEXT_PUBLIC_*` van como valores planos
+(no son secretas) y `FIREBASE_PRIVATE_KEY` como referencia a un secreto de
+Secret Manager (`firebase apphosting:secrets:set`), nunca en texto plano.
+
+> Si el proyecto alguna vez vuelve al plan Spark (sin Blaze), App Hosting deja de
+> ser gratuito y la alternativa es **Cloudflare Workers** (gratis, permite uso
+> comercial) — pendiente de documentar paso a paso en
+> [`docs/PUESTA-EN-MARCHA.md`](docs/PUESTA-EN-MARCHA.md#5-publicar-el-sitio).
+
+**Dominio propio y despliegue continuo** — dos pasos manuales que solo puede hacer
+quien tenga acceso a la cuenta correspondiente (no se pueden automatizar desde la
+CLI, exigen autorización interactiva en el navegador):
+
+- **Conectar `encomiendasmitierra.com`**: Firebase Console → App Hosting → el
+  backend → *Add custom domain*. La consola da los registros DNS exactos a dar de
+  alta donde esté administrado el dominio.
+- **Auto-deploy en cada push**: Firebase Console → App Hosting → el backend →
+  conectar el repositorio de GitHub (`zoharmx/encomiendas-mitierra`). Sin esto,
+  cada cambio se publica a mano con el comando de arriba.
+
+Las reglas e índices de Firestore se despliegan aparte:
 
 ```bash
 npm run reglas:deploy

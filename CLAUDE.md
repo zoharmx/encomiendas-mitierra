@@ -12,6 +12,12 @@ paqueterías ni GPS.
 Next.js 15 (App Router) · TypeScript estricto · Tailwind v4 · Firebase (Firestore,
 Auth, Storage) · lucide-react · qrcode.
 
+El staff entra con **Email/Password o Google Sign-In** (ambos en `/login`); el
+master prompt original solo pedía Email/Password, Google se agregó después a
+petición del dueño del negocio. Producción corre en **Firebase App Hosting**
+(plan Blaze) — ver [`HANDOFF.md`](HANDOFF.md#estado-de-producción-13-de-julio-de-2026)
+para el estado desplegado.
+
 ## Filosofía — léela antes de proponer nada
 
 1. **Costo cero.** Todo cabe en el tier gratuito de Firebase (plan Spark). **Nada de

@@ -1,4 +1,9 @@
 {
+  "apphosting": {
+    "backendId": "encomiendas-mitierra",
+    "rootDir": "/",
+    "ignore": ["firebase-debug.log", "firebase-debug.*.log", "node_modules", ".git"]
+  },
   "firestore": {
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"

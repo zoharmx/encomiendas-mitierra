@@ -1,10 +1,56 @@
 # HANDOFF — estado del proyecto
 
-Última actualización: **13 de julio de 2026**.
+Última actualización: **13 de julio de 2026** (ya en producción).
 
 Documento para retomar el proyecto en otra sesión (o por otra persona). Lee también
 [`CLAUDE.md`](CLAUDE.md) (las reglas del proyecto) y
 [`docs/ESQUEMA.md`](docs/ESQUEMA.md) (el modelo de datos).
+
+---
+
+## Estado de producción (13 de julio de 2026)
+
+El dueño activó el **plan Blaze** y hay un proyecto de Firebase real:
+`encomiendas-mitierra`. Esto está desplegado y funcionando:
+
+- **Sitio en vivo**: <https://encomiendas-mitierra--encomiendas-mitierra.us-central1.hosted.app>
+  (Firebase App Hosting, desplegado desde código local con `firebase deploy --only apphosting`).
+- **Firestore**: reglas e índices publicados. `contadores/folios` inicializado en `{ultimo: 0}`.
+- **Storage**: reglas publicadas.
+- **Auth**: Email/Password **y Google Sign-In** habilitados (el login ofrece ambos).
+- **Primer admin**: `hoymismotv@gmail.com`, precreado con el Admin SDK y perfil
+  `usuarios/{uid}` con `rol: admin`. Entra con el botón "Entrar con Google" usando
+  ese correo — Firebase enlaza automáticamente por coincidencia de correo verificado,
+  sin que nadie tenga que copiar un UID a mano.
+- **Repo en GitHub**: `zoharmx/encomiendas-mitierra`, rama `master`, ya con todo el
+  código (commit `aa02cc2`).
+- **Logo oficial** incorporado en login, landing, header del panel, header del
+  rastreo público, favicon (`src/app/icon.png`), apple-touch-icon, e imagen social
+  Open Graph (`src/app/opengraph-image.png`). Los recortes fuente están en
+  `public/logo.png` (completo) y `public/logo-emblema.png` (solo el globo);
+  ambos se generaron a partir de `images/logo.png` (no versionado).
+
+### Pendiente para cerrar del todo
+
+1. **Dominio `encomiendasmitierra.com`.** Falta conectarlo: Firebase Console →
+   App Hosting → backend `encomiendas-mitierra` → **Add custom domain**. La consola
+   genera los registros DNS exactos (verificación + A/CNAME) que hay que dar de alta
+   donde esté administrado el dominio. Este paso requiere acceso al panel del
+   registrador/DNS, que Claude no tiene — debe hacerlo alguien con esas credenciales.
+2. **Despliegue continuo (opcional).** Hoy el deploy es manual
+   (`firebase deploy --only apphosting`). Para que se despliegue solo en cada
+   `git push`, hay que conectar el repo de GitHub al backend desde Firebase Console
+   → App Hosting → backend → conectar repositorio. Ese paso exige autorizar la
+   GitHub App vía navegador (OAuth interactivo) — no se puede automatizar desde la
+   CLI ni desde este agente.
+3. Existe una app web de Firebase duplicada y sin usar
+   (`encomiendas-mitierra`, distinta de `Encomiendas Mi Tierra - Web` que sí se usa
+   en `.env.local`/`apphosting.yaml`): la creó automáticamente
+   `apphosting:backends:create`. Es inofensiva, solo clutter en la lista de apps del
+   proyecto; se puede borrar desde Firebase Console si molesta.
+
+Los pendientes que ya existían (revisar la UI en un teléfono real, pantalla de
+gestión de usuarios, verificar los teléfonos de contacto) siguen abajo, sin cambios.
 
 ---
 
@@ -68,13 +114,16 @@ Para verlo: `npm run emu` + `npm run sembrar` + `npm run dev`
 
 ## Decisiones que tomé y que conviene que sepas
 
-**1. El sitio NO se puede publicar en Firebase Hosting a secas.**
-La app tiene un middleware y una API route: necesita servidor. Firebase Hosting en
-plan Spark solo sirve archivos estáticos, y el SSR de Next exige Cloud Functions
-(plan Blaze, con tarjeta) — que el proyecto prohíbe explícitamente. **Recomendación:
-Cloudflare Workers** (gratis, permite uso comercial). Pasos en
-[`docs/PUESTA-EN-MARCHA.md`](docs/PUESTA-EN-MARCHA.md#5-publicar-el-sitio).
-Firebase sigue siendo la base de datos; solo cambia dónde vive el HTML.
+**1. El sitio se publicó en Firebase App Hosting, no en Cloudflare Workers.**
+La app tiene un middleware y una API route: necesita servidor. En plan Spark,
+Firebase Hosting solo sirve archivos estáticos y el SSR de Next exige Cloud
+Functions/Cloud Run (plan Blaze). El dueño activó Blaze deliberadamente, así que
+**Firebase App Hosting** (el producto moderno de Firebase para frameworks
+full-stack) es la opción usada — todo queda en un solo panel. El README original
+recomendaba Cloudflare Workers para cuando NO había Blaze; si el proyecto alguna
+vez vuelve al plan Spark, esa sigue siendo la alternativa documentada en
+[`docs/PUESTA-EN-MARCHA.md`](docs/PUESTA-EN-MARCHA.md#5-publicar-el-sitio) (ese
+documento aún no se actualizó con los pasos de App Hosting — pendiente).
 
 **2. El middleware no verifica la firma de la cookie, solo que exista.**
 No puede: corre en Edge y `firebase-admin` es un paquete de Node. La autorización
