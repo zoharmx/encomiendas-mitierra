@@ -174,9 +174,19 @@ Si los cinco pasos salen bien, el sistema está listo.
 
 ## Mantenimiento
 
-**Dar de alta a alguien del personal.** Por ahora se hace igual que el primer admin
-(pasos 3.1 a 3.3 de esta guía), con `rol: operador`. Una pantalla para gestionar
-usuarios desde el panel queda pendiente (ver `HANDOFF.md`).
+**Dar de alta a alguien del personal.** Con login por Email/Password se hace igual
+que el primer admin (pasos 3.1 a 3.3 de esta guía). Si la persona va a entrar con
+**Google**, es más simple: que entre una vez a `/login` con su cuenta de Google
+(verá "Tu cuenta no tiene acceso al panel" — es normal, ya existe su cuenta de Auth
+pero le falta el perfil de staff) y luego corre, con las variables `FIREBASE_*` de
+`.env.local` cargadas:
+
+```bash
+node scripts/dar-de-alta-staff.mjs correo@ejemplo.com "Nombre Completo" operador
+```
+
+(`admin` en vez de `operador` si necesita dar de alta a otros). Una pantalla para
+gestionar usuarios desde el panel queda pendiente (ver `HANDOFF.md`).
 
 **Dar de baja a alguien.** En Firestore, en su documento `usuarios/{uid}`, pon
 `activo: false`. Pierde el acceso al instante, sin borrar nada de su historial.
